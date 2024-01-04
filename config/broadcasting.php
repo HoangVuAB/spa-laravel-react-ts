@@ -56,6 +56,12 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
+            'queue' => 'default',
+            'retry_after' => 90,
+            'cluster' => false,
+            'options' => [
+                'password' => env('REDIS_PASSWORD'),
+            ],
         ],
 
         'log' => [
