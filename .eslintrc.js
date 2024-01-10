@@ -2,12 +2,14 @@ module.exports = {
     env: {
         browser: true,
         es2021: true,
+        amd: true,
     },
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:react/jsx-runtime',
+        'plugin:prettier/recommended',
     ],
     overrides: [
         {
@@ -26,12 +28,20 @@ module.exports = {
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true,
+            tsx: true,
         },
     },
     plugins: ['@typescript-eslint', 'react'],
     rules: {
         'react/jsx-no-target-blank': 'off',
         'react/prop-types': 'off',
+        'prettier/prettier': [
+            'error',
+            {},
+            {
+                usePrettierrc: true,
+            },
+        ],
     },
     settings: {
         react: {

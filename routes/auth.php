@@ -37,10 +37,10 @@ Route::middleware('guest')->group(function () {
 
     Route::group(['middleware' => 'cors'], function () {
         Route::get('/social-login/{provider}', [SocialiteController::class, 'socialLogin'])
-            ->where('provider', 'twitter|facebook|linkedin|google|github|bitbucket')
+            ->where('provider', 'google|github')
             ->name('login.social');
         Route::get('/social-login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback'])
-            ->where('provider', 'twitter|facebook|linkedin|google|github|bitbucket');
+            ->where('provider', 'google|github');
     });
 });
 

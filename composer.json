@@ -75,5 +75,12 @@
     ],
     "lint": [
         "./vendor/bin/php-cs-fixer fix -vvv --show-progress=dots"
+    ],
+    "post-update-cmd": [
+    "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+    "@php artisan ide-helper:models -N",
+    "@php artisan ide-helper:generate",
+    "@php artisan ide-helper:eloquent",
+    "@php artisan ide-helper:meta"
     ]
 }
