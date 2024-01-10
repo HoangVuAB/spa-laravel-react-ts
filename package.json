@@ -24,7 +24,6 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "laravel-echo": "^1.15.3",
-        "socket.io-client": "^4.7.2"
+        "laravel-echo": "^1.15.3"
     }
 }

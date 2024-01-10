@@ -5,7 +5,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({
     status,
@@ -19,9 +19,6 @@ export default function Login({
         password: '',
         remember: false,
     });
-
-    const errorList = usePage().props.errors;
-    console.log(errorList);
 
     useEffect(() => {
         return () => {
@@ -94,7 +91,7 @@ export default function Login({
                     </label>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center justify-between mt-4">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
@@ -107,6 +104,18 @@ export default function Login({
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Log in
                     </PrimaryButton>
+                </div>
+                <div className="flex items-center justify-center flex-col">
+                    <Link
+                        href={route('register')}
+                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Already have an account?
+                    </Link>
+                </div>
+                <div className="flex items-center justify-center flex-col">
+                    <Link href={route('login.social', ['google'])}>Google</Link>
+                    <Link href={route('login.social', ['github'])}>Github</Link>
                 </div>
             </form>
         </GuestLayout>

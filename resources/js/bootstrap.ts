@@ -20,13 +20,6 @@ import Echo from 'laravel-echo';
 // import Pusher from 'pusher-js';
 // window.Pusher = Pusher;
 
-declare global {
-    interface Window {
-        Echo: any;
-        laravel_echo_port: any;
-    }
-}
-
 window.Echo = new Echo({
     broadcaster: 'socket.io',
     // key: import.meta.env.VITE_PUSHER_APP_KEY,
@@ -37,6 +30,6 @@ window.Echo = new Echo({
     // wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
     // wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     // forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-    // enabledTransports: ['ws', 'wss'],
-    host: window.location.hostname + ':' + import.meta.env.LARAVEL_ECHO_PORT,
+    enabledTransports: ['ws', 'wss'],
+    host: window.location.hostname + ':6001',
 });
