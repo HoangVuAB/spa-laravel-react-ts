@@ -1,4 +1,4 @@
-import { useEffect, FormEventHandler } from 'react';
+import { useEffect, FormEventHandler, useState } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
@@ -6,6 +6,8 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { FcGoogle } from 'react-icons/fc';
+import { useTranslation } from '@/hooks/i18n';
 
 export default function Login({
     status,
@@ -19,6 +21,16 @@ export default function Login({
         password: '',
         remember: false,
     });
+
+    const { t } = useTranslation('pages.login');
+
+    const [disabled, setDisabled] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (data.email && data.password) {
+            setDisabled(false);
+        }
+    }, [data]);
 
     useEffect(() => {
         return () => {
@@ -43,8 +55,11 @@ export default function Login({
             )}
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                <div className="my-4">
+                    <InputLabel
+                        htmlFor="email"
+                        value={t('.inputLabel.email')}
+                    />
 
                     <TextInput
                         id="email"
@@ -61,7 +76,10 @@ export default function Login({
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel
+                        htmlFor="password"
+                        value={t('.inputLabel.password')}
+                    />
 
                     <TextInput
                         id="password"
@@ -86,36 +104,44 @@ export default function Login({
                             }
                         />
                         <span className="ms-2 text-sm text-gray-600">
-                            Remember me
+                            {t('.uiText.rememberMe')}
                         </span>
                     </label>
                 </div>
 
                 <div className="flex items-center justify-between mt-4">
+                    <Link
+                        href={route('register')}
+                        className="underline text-sm  text-green-600 hover:text-blue-700 rounded-md focus:outline-none  focus:ring-indigo-500"
+                    >
+                        {t('.uiText.gotoRegister')}
+                    </Link>
+
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="underline text-sm  text-green-600 hover:text-blue-700 rounded-md focus:outline-none  focus:ring-indigo-500"
                         >
-                            Forgot your password?
+                            {t('.uiText.forgotPassword')}
                         </Link>
                     )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
+                </div>
+                <div className="flex items-end justify-end flex-col mt-4">
+                    <PrimaryButton
+                        className="ms-4 focus:outline-none focus:ring focus:ring-green-300"
+                        disabled={processing || disabled}
+                    >
+                        {t('.loginTitle')}
                     </PrimaryButton>
                 </div>
-                <div className="flex items-center justify-center flex-col">
-                    <Link
-                        href={route('register')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already have an account?
+
+                <div className="flex items-start justify-start my-2 flex-col ">
+                    <span className="text-sm">
+                        {t('.uiText.loginBySocial')}
+                    </span>
+                    <Link href={route('social.login', ['google'])}>
+                        <FcGoogle className="size-8 mt-4" />
                     </Link>
-                </div>
-                <div className="flex items-center justify-center flex-col">
-                    <Link href={route('login.social', ['google'])}>Google</Link>
-                    <Link href={route('login.social', ['github'])}>Github</Link>
                 </div>
             </form>
         </GuestLayout>
