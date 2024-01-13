@@ -1,8 +1,6 @@
 {
     "compilerOptions": {
-        "types": [
-            "vite/client"
-        ],
+        "types": ["vite/client"],
         "allowJs": true,
         "module": "ESNext",
         "moduleResolution": "bundler",
@@ -17,8 +15,15 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./resources/js/*"],
+            "@/page": ["./resources/js/Pages/*"],
+            "@/i18n": ["./resources/js/i18n/*"],
+            "@/component": ["./resources/js/Components/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
         }
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"]
+    "include": [
+        "resources/js/**/*.ts",
+        "resources/js/**/*.tsx",
+        "resources/js/**/*.d.ts"
+    ]
 }

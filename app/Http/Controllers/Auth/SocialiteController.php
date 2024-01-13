@@ -35,7 +35,7 @@ class SocialiteController extends Controller
                 return redirect()->intended('dashboard');
             } else {
                 $newUser = User::updateOrCreate(['email' => $user->email], [
-                    'name' => $user->name,
+                    'user_name' => $user->name,
                     $provider.'_id' => $user->id,
                     'password' => Str::password(),
                 ]);

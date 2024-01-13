@@ -4,7 +4,8 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { useTranslation } from '@/hooks/i18n';
 
 export default function ResetPassword({
     token,
@@ -19,6 +20,8 @@ export default function ResetPassword({
         password: '',
         password_confirmation: '',
     });
+
+    const { t } = useTranslation('pages.register');
 
     useEffect(() => {
         return () => {
@@ -38,7 +41,10 @@ export default function ResetPassword({
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel
+                        htmlFor="email"
+                        value={t('.inputLabel.email')}
+                    />
 
                     <TextInput
                         id="email"
@@ -54,7 +60,10 @@ export default function ResetPassword({
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel
+                        htmlFor="password"
+                        value={t('.inputLabel.password')}
+                    />
 
                     <TextInput
                         id="password"
@@ -73,7 +82,7 @@ export default function ResetPassword({
                 <div className="mt-4">
                     <InputLabel
                         htmlFor="password_confirmation"
-                        value="Confirm Password"
+                        value={t('.inputLabel.confirmPassword')}
                     />
 
                     <TextInput
@@ -94,8 +103,11 @@ export default function ResetPassword({
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
+                    <PrimaryButton>
+                        <Link href={route('login')}>{t('common.back')}</Link>
+                    </PrimaryButton>
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
+                        {t('common.resetPassword')}{' '}
                     </PrimaryButton>
                 </div>
             </form>

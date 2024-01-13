@@ -1,0 +1,68 @@
+{
+    "common":{
+        "required": "*必須",
+        "registerPage": "新規登録ページへ",
+        "back": "戻る",
+        "resetPasswordLink": "メールアドレスに送信",
+        "confirm": "確認",
+        "resetPassword": "パスワード再発行",
+        "confirmPasswordTitle": "次に進めるため、ユーザー認証必要があります。パスワードを最確認してください",
+        "forgotPasswordTitle": "パスワードをお忘れですか？心配しないでください。\n登録したメールアドレスを入力して、パスワード再発行のリンク先を含む案内メールが届きます。\n案内通りに進めばパスワードが再発行されます。"
+
+    },
+
+    "pages" : {
+        "register":{
+            "registerTitle": "新規登録",
+            "inputLabel":{
+                "userName": "ユーザー名",
+                "furigana": "フリガナ",
+                "phoneNumber": "電話番号",
+                "postCode": "郵便番号",
+                "address": "住所",
+                "addressDetail": "詳細住所",
+                "email": "メールアドレス",
+                "password": "パスワード",
+                "confirmPassword": "パスワード確認用"
+            },
+            "placeholder":{
+                "userName": "山田 太郎",
+                "userNameKana": "ヤマダ タロウ",
+                "phoneNumber": "123-4567-8910",
+                "postCode": "1000104",
+                "address": "東京都 大島町 野増",
+                "email": "example@gmail.com"
+
+            },
+            "uiText":{
+                "alreadyRegistered": "既に登録した方はこちらへ",
+                "notUseHyphen": "※ 連続７数字で、ハイフン(ー)なし",
+                "termsOfUse": "利用規約",
+                "privacyPolicy": "プライバシーポリシー"
+            }
+
+        },
+
+        "login":{
+            "loginTitle": "ログイン",
+
+            "inputLabel":{
+                "email": "メールアドレス",
+                "password": "パスワード"
+            },
+            "placeholder":{
+                "email": "example@gmail.com"
+            },
+            "uiText":{
+                "loginBySocial": "または、以下でログイン",
+                "rememberMe": "ログイン状態を保存する",
+                "forgotPassword": "パスワードをお忘れですか？",
+                "gotoRegister": "会員式登録"
+            }
+        }
+    },
+
+    "validate":{
+        "invalidAddress": "住所がみつかりませんでした。"
+    }
+}

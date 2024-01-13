@@ -13,7 +13,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: [
+                    '"Hiragino Kaku Gothic ProN"',
+                    'Meiryo',
+
+                    ...defaultTheme.fontFamily.sans,
+                ],
             },
         },
     },
