@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\SendNotification;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Application;
@@ -34,6 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/send-notification', function () {
         event(new SendNotification());
     })->name('notification');
+
+    Route::post('/send-emails', [MailController::class, 'sendCustomEmail'])->name('custom.email');
 });
 
 require __DIR__.'/auth.php';
