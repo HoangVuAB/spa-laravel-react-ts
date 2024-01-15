@@ -12,7 +12,7 @@ abstract class RepositoryAbstract implements RepositoryInterface
     protected Model $model;
 
     /**
-     * Construct
+     * Construct.
      *
      * @return void
      */
@@ -55,9 +55,9 @@ abstract class RepositoryAbstract implements RepositoryInterface
         return $this->model->find($id, $columns);
     }
 
-    public function findByField(mixed $field, mixed $value): Builder
+    public function findByField(mixed $field, mixed $value): Model
     {
-        return $this->model->where($field, $value);
+        return $this->model->where($field, $value)->first();
     }
 
     public function findByFields(array $conditions): Builder
