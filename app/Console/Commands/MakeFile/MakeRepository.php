@@ -2,6 +2,10 @@
 
 namespace App\Console\Commands\MakeFile;
 
+use Exception;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+
 class MakeRepository extends BaseMakeFileCommand
 {
     /**
@@ -60,26 +64,86 @@ class MakeRepository extends BaseMakeFileCommand
         return $this->generateMarkup($fileFullName, $fileContent);
     }
 
-    public function registerRepositoryToProvider(): void
+    // public function registerRepositoryToProvider(): bool
+    // {
+    //     try {
+    //         $repoServiceProviderPath = app_path('Providers/RepositoryServiceProvider.php');
+    //         $fileContent = file_get_contents($repoServiceProviderPath);
+
+    //         $keyword = 'protected array $repositories = [';
+    //         $preIndex = strpos($fileContent, $keyword);
+
+    //         $postIndex = strpos($fileContent, ']', $preIndex);
+    //         $postFixLength = 1;
+
+    //         if ($postIndex - $preIndex == strlen($keyword)) {
+    //             $content = "\n\t\t'{$this->fileName}'\n\t]";
+    //         } else {
+    //             $postIndex -= 2;
+    //             $postFixLength += 2;
+    //             $content = "\n\t\t'{$this->fileName}',\n\t]";
+    //         }
+    //         $newFileContent = substr_replace($fileContent, $content, $postIndex, $postFixLength);
+
+    //         file_put_contents($repoServiceProviderPath, $newFileContent);
+
+    //         return true;
+    //     } catch (Exception $e) {
+    //         Log::error($e->getMessage());
+
+    //         return false;
+    //     }
+    // }
+
+    public function registerRepositoryToProvider(): bool
     {
-        $repositoryServiceProviderPath = app_path('Providers/RepositoryServiceProvider.php');
-        $fileContent = file_get_contents($repositoryServiceProviderPath);
+        try {
+            $repoServiceProviderPath = app_path('Providers/RepositoryServiceProvider.php');
 
-        $keyword = 'protected array $repositories = [';
-        $preIndex = strpos($fileContent, $keyword);
+            if (! File::exists($repoServiceProviderPath)) {
+                throw new \Illuminate\Contracts\Filesystem\FileNotFoundException("File not found: {$repoServiceProviderPath}");
+            }
 
-        $postIndex = strpos($fileContent, ']', $preIndex);
-        $postFixLength = 1;
+            $fileContent = File::get($repoServiceProviderPath);
+            $keyword = 'protected array $repositories = [';
 
-        if ($postIndex - $preIndex == strlen($keyword)) {
-            $content = "\n\t\t'{$this->fileName}'\n\t]";
-        } else {
-            $postIndex -= 2;
-            $postFixLength += 2;
-            $content = ",\n\t\t'{$this->fileName}'\n\t]";
+            $preIndex = strpos($fileContent, $keyword);
+
+            if ($preIndex !== false) {
+                $postIndex = strpos($fileContent, ']', $preIndex);
+                $postFixLength = 1;
+
+                $content = $this->generateContentToAdd();
+
+                $newFileContent = substr_replace($fileContent, $content, $postIndex, $postFixLength);
+
+                File::put($repoServiceProviderPath, $newFileContent);
+
+                return true;
+            }
+
+            throw new \LogicException("Keyword '{$keyword}' not found in the file.");
+        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+            Log::error($e->getMessage());
+        } catch (\LogicException $e) {
+            Log::error($e->getMessage());
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
         }
-        $newFileContent = substr_replace($fileContent, $content, $postIndex, $postFixLength);
 
-        file_put_contents($repositoryServiceProviderPath, $newFileContent);
+        return false;
+    }
+
+    private function generateContentToAdd(): string
+    {
+        $content = "\n\t\t'{$this->fileName}'";
+
+        if (strpos($content, '[') !== false) {
+            $content .= "\n\t]";
+        } else {
+            $content .= ",\n\t]";
+        }
+
+        return $content;
     }
 }

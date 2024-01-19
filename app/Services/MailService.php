@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Mail\CustomMail;
 use App\Repositories\User\UserRepository;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class MailService
 {

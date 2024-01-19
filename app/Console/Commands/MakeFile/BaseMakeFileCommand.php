@@ -46,10 +46,8 @@ abstract class BaseMakeFileCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             $this->fileName = $this->getFileName();
@@ -59,6 +57,11 @@ abstract class BaseMakeFileCommand extends Command
         } catch (\Throwable $e) {
             $this->info($e->getMessage());
         }
+    }
+
+    protected function makeFile(): bool
+    {
+        return true;
     }
 
     public function setFolderPath(): void
@@ -80,7 +83,6 @@ abstract class BaseMakeFileCommand extends Command
 
     protected function generateMarkup(string $fileFullName, string $fileContent): bool
     {
-
         $filePath = $this->folderPath.'/'.$fileFullName;
 
         return $this->writeFile($filePath, $fileContent, $fileFullName);

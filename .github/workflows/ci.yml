@@ -1,4 +1,4 @@
-name: Laravel-CI
+name: CI
 
 on:
     push:
@@ -54,6 +54,14 @@ jobs:
               uses: stefanzweifel/git-auto-commit-action@v4
               with:
                   commit_message: Fix styling ${{ github.head_ref }}
+
+            - name: Find security vulnerabilities in your PHP
+              uses: psalm/psalm-github-security-scan@1.2.1
+
+            - name: Checks composer.json for known vulnerabilities
+              uses: symfonycorp/security-checker-action@v4
+              with:
+                  lock: ./composer.lock
     Build-Tests:
         runs-on: ubuntu-latest
 
@@ -85,8 +93,12 @@ jobs:
 
             - name: Install Npm dependencies
               run: npm install
-            - name: Build Inertia
+
+            - name: Compile assets
               run: npm run build
 
             - name: Execute tests
               run: vendor/bin/phpunit
+
+            - name: Run Static Analysis
+              run: ./vendor/bin/phpstan analyse app
