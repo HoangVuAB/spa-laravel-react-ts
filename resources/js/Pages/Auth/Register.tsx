@@ -27,7 +27,7 @@ export default function Register() {
         post(route('register'));
     };
 
-    const [disabled, setDisable] = useState<boolean>(true);
+    const [disabled, setDisabled] = useState<boolean>(true);
     const [checked, setChecked] = useState<boolean>(false);
     const [address, setAddress] = useState('');
 
@@ -51,9 +51,11 @@ export default function Register() {
             data.password_confirmation &&
             checked
         ) {
-            setDisable(false);
+            setDisabled(false);
+        } else {
+            setDisabled(true);
         }
-    }, [data]);
+    }, [data, checked]);
 
     const handlePostCodeChange = (e: any) => {
         const postCode = e.target.value;

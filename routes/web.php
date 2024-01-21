@@ -1,10 +1,8 @@
 <?php
 
-use App\Events\SendNotification;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,10 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/send-notification', function () {
-        event(new SendNotification());
-    })->name('notification');
 
     Route::post('/send-emails', [MailController::class, 'sendCustomEmail'])->name('custom.email');
 });

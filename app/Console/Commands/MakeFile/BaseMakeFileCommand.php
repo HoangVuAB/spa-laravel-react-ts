@@ -59,11 +59,6 @@ abstract class BaseMakeFileCommand extends Command
         }
     }
 
-    protected function makeFile(): bool
-    {
-        return true;
-    }
-
     public function setFolderPath(): void
     {
         $this->folderPath = app_path($this->folder);
