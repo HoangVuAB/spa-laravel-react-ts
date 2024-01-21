@@ -1,9 +1,7 @@
-import { useState, PropsWithChildren, ReactNode, useEffect } from 'react';
+import { useState, PropsWithChildren, ReactNode } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
-import Modal from '@/Components/Modal';
-import SecondaryButton from '@/Components/SecondaryButton';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
@@ -13,10 +11,6 @@ interface NotificationInterface {
     content: string;
     externalLink?: string;
 }
-const InitNotification: NotificationInterface = {
-    title: '',
-    content: '',
-};
 
 export default function Authenticated({
     user,
@@ -25,25 +19,6 @@ export default function Authenticated({
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
-    const [isShowNotification, setIsShowNotification] =
-        useState<boolean>(false);
-    const [notification, setNotification] =
-        useState<NotificationInterface>(InitNotification);
-
-    useEffect(() => {
-        window.Echo.channel('laravel_database_user-channel').listen(
-            '.UserEvent',
-            (data: any) => {
-                setIsShowNotification(true);
-                setNotification({
-                    title: data.title,
-                    content: data.content,
-                    externalLink: data?.externalLink,
-                });
-            },
-        );
-    }, []);
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -205,31 +180,6 @@ export default function Authenticated({
             )}
 
             <main>{children}</main>
-
-            <Modal
-                show={isShowNotification}
-                onClose={() => setIsShowNotification(!isShowNotification)}
-            >
-                <div className="p-5">
-                    <h2 className="text-lg font-medium text-gray-900">
-                        {notification.title}
-                    </h2>
-
-                    <p className="mt-1 text-sm text-black">
-                        {notification.content}
-                    </p>
-
-                    <div className="mt-6 flex justify-center">
-                        <SecondaryButton
-                            onClick={() =>
-                                setIsShowNotification(!isShowNotification)
-                            }
-                        >
-                            Cancel
-                        </SecondaryButton>
-                    </div>
-                </div>
-            </Modal>
         </div>
     );
 }

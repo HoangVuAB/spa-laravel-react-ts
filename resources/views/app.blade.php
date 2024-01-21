@@ -23,6 +23,4 @@
     @inertia
 </body>
 
-<script src="http://{{ Request::getHost()}}:6001/socket.io/socket.io.js"></script>
-
 </html>
