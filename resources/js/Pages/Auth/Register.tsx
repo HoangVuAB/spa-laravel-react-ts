@@ -4,14 +4,26 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { useTranslation } from '@/hooks/i18n';
 import JapanPostalCode from 'japan-postal-code';
 import Checkbox from '@/Components/Checkbox';
 
+interface RegisterData {
+    user_name: string;
+    user_name_kana: string;
+    phone_number: number | string;
+    postcode: string;
+    address: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+}
+
 export default function Register() {
     const { t } = useTranslation('pages.register');
-    const { data, setData, post, processing, errors, reset } = useForm({
+
+    const initialData: RegisterData = {
         user_name: '',
         user_name_kana: '',
         phone_number: '',
@@ -20,7 +32,10 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
-    });
+    };
+    const { data, setData, post, processing, errors, reset } =
+        useForm(initialData);
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -91,7 +106,7 @@ export default function Register() {
                             name="user_name"
                             value={data.user_name}
                             className="mt-1 block w-full"
-                            autoComplete="first_name"
+                            autoComplete="user_name"
                             isFocused={true}
                             onChange={(e) =>
                                 setData('user_name', e.target.value)
@@ -157,7 +172,7 @@ export default function Register() {
                 </div>
 
                 <div className="flex flex-col">
-                    <div className="mt-4 flex flex-row items-center justify-between">
+                    <div className="mt-4 flex flex-row items-center justify-start">
                         <InputLabel
                             htmlFor="postcode"
                             value={t('.inputLabel.postCode')}
@@ -288,19 +303,21 @@ export default function Register() {
                         />
 
                         <div className="ms-2">
-                            <Link
+                            <a
+                                target="_blank"
                                 href={route('terms')}
                                 className="underline text-sm  text-green-600 hover:text-blue-700 rounded-md focus:outline-none  focus:ring-indigo-500"
                             >
                                 {t('.uiText.termsOfUse')}
-                            </Link>
+                            </a>
                             と
-                            <Link
+                            <a
+                                target="_blank"
                                 href={route('policy')}
                                 className="underline text-sm  text-green-600 hover:text-blue-700 rounded-md focus:outline-none  focus:ring-indigo-500"
                             >
                                 {t('.uiText.privacyPolicy')}
-                            </Link>
+                            </a>
                             に同意する。
                         </div>
                     </label>

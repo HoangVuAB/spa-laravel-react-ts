@@ -12,7 +12,9 @@ export default function TermsOfUse({ status }: { status?: string }) {
 
             <div className="mb-4 text-sm text-gray-600">Term of use page</div>
             <PrimaryButton>
-                <Link href={route('register')}>{t('common.registerPage')}</Link>
+                <Link onClick={() => window.close()} href="#">
+                    {t('common.close')}
+                </Link>
             </PrimaryButton>
         </GuestLayout>
     );

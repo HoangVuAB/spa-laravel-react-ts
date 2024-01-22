@@ -26,8 +26,8 @@ export default function ForgotPassword({ status }: { status?: string }) {
             <div className="mb-4 text-sm text-gray-600">
                 {t('common.forgotPasswordTitle')
                     .split('\n')
-                    .map((t) => (
-                        <p>{t}</p>
+                    .map((t, index) => (
+                        <p key={`${t}_${index}`}>{t}</p>
                     ))}
             </div>
 
@@ -51,9 +51,13 @@ export default function ForgotPassword({ status }: { status?: string }) {
                 <InputError message={errors.email} className="mt-2" />
 
                 <div className="flex items-center justify-between mt-4">
-                    <PrimaryButton>
-                        <Link href={route('login')}>{t('common.back')}</Link>
-                    </PrimaryButton>
+                    <Link
+                        className="underline underline-offset-3"
+                        href={route('login')}
+                    >
+                        {t('common.back')}
+                    </Link>
+
                     <PrimaryButton className="ms-4" disabled={processing}>
                         {t('common.resetPasswordLink')}
                     </PrimaryButton>
