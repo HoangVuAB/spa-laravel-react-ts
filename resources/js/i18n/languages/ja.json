@@ -3,6 +3,7 @@
         "required": "*必須",
         "registerPage": "新規登録ページへ",
         "back": "戻る",
+        "close": "閉じる",
         "resetPasswordLink": "メールアドレスに送信",
         "confirm": "確認",
         "resetPassword": "パスワード再発行",
@@ -57,7 +58,7 @@
                 "loginBySocial": "または、以下でログイン",
                 "rememberMe": "ログイン状態を保存する",
                 "forgotPassword": "パスワードをお忘れですか？",
-                "gotoRegister": "会員式登録"
+                "gotoRegister": "新規登録"
             }
         },
 

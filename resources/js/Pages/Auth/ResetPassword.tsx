@@ -103,9 +103,10 @@ export default function ResetPassword({
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton>
-                        <Link href={route('login')}>{t('common.back')}</Link>
-                    </PrimaryButton>
+                    <Link replace href={route('login')}>
+                        {t('common.back')}
+                    </Link>
+
                     <PrimaryButton className="ms-4" disabled={processing}>
                         {t('common.resetPassword')}{' '}
                     </PrimaryButton>

@@ -55,12 +55,12 @@ abstract class RepositoryAbstract implements RepositoryInterface
         return $this->model->find($id, $columns);
     }
 
-    public function findByField(mixed $field, mixed $value): Model
+    public function findByField(mixed $field, mixed $value): ?Model
     {
-        return $this->model->where($field, $value)->first();
+        return $this->model->where($field, $value)?->first();
     }
 
-    public function findByFields(array $conditions): Builder
+    public function findByFields(array $conditions): ?Builder
     {
         return $this->model->where($conditions);
     }

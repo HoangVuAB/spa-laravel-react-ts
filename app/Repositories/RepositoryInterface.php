@@ -23,9 +23,9 @@ interface RepositoryInterface
 
     public function find(mixed $id, array $columns = ['*']): Model|Collection|static|array|null;
 
-    public function findByField(mixed $field, mixed $value): Model;
+    public function findByField(mixed $field, mixed $value): ?Model;
 
-    public function findByFields(array $conditions): Builder;
+    public function findByFields(array $conditions): ?Builder;
 
     public function buildWhere(array $conditions, Builder|Model|null $query = null): Builder|Model;
 
